@@ -28,13 +28,14 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (message) => {
     console.log('New message', message)
+
+      io.emit('newMessage',{
+        from:'Jon', 
+        text:'See you then',
+        createdAt: new Date().getTime().toString()
+      })
   })
 
-  socket.emit('newMessage', {
-    from:'Jon', 
-    text:'See you then',
-    createdAt: new Date().getTime().toString()
-  })
 
 })
  
