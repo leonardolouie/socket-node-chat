@@ -100,9 +100,29 @@
     </div>
     
 </body>
+
+<script id="message-template" type="text/template"> 
+    <div class="flex mb-2">
+        <div class="rounded py-2 px-3" style="background-color: #FFFF">
+            <p class="text-md text-teal">
+                {{message.from}}
+            </p>
+            <p class="text-sm mt-1">
+                {{message.text}}
+            </p>
+            <p class="text-right text-xs text-grey-dark mt-1">
+                {{message.createdAt}}
+            </p>
+        </div>
+    </div>
+</script>
+
+
 <script src="/socket.io/socket.io.js"> </script>
 <script src="js/libs/jquery-3.4.1.min.js"> </script>
 <script src="js/libs/moment.js"> </script>
+<script src="js/libs/mustache.js"> </script>
 <script src="/js/index.js"> </script>
+
 
 </html>

@@ -7,21 +7,15 @@
 
 
 socket.on('newMessage', function(message) {
-    var formattedTime = moment(message.createdAt).format('h:mm a')
-    
-    $("#messages").append(`<div class="flex mb-2">
-    <div class="rounded py-2 px-3" style="background-color: #FFFF">
-    <p class="text-md text-teal">
-    ${message.from}
-    </p>
-    <p class="text-sm mt-1">
-    ${message.text}
-    </p>
-    <p class="text-right text-xs text-grey-dark mt-1">
-    ${formattedTime}
-    </p>
-    </div>
-    </div>`)
+     var formattedTime = moment(message.createdAt).format('h:mm a')
+
+     var template = $("#message-template").html()
+     var html = Mustache.render(template, {message:{
+         text:message.text,
+         from:message.from,
+         createdAt:formattedTime
+     }})
+     $("#messages").append(html)
     
 })
 
