@@ -19,16 +19,18 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Disconnected from client')
   })
-
+  //recieve by single
   socket.emit('newMessage', generateMessage('admin', 'Welcome to chat app'))
-
-  socket.broadcast.emit('newMEssage', generateMessage('admin', 'new user Join'))
+  socket.broadcast.emit('newMessage', generateMessage('admin', 'new user Join'))
       
 
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('New message', message)
       io.emit('newMessage',generateMessage(message.from, message.text))
+    
+
+      callback('This is from server')
   })
 
 })
