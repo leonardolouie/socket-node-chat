@@ -6,7 +6,7 @@ const http = require('http')
 var server = http.createServer(app)
 var io = socketIO(server)
 
-const {generateMessage} = require('./utils/message')
+const {generateMessage, generateLocationMessage} = require('./utils/message')
 const publicPath = path.join(__dirname, '../public')
 const port = process.env.PORT || 3000
 
@@ -21,17 +21,21 @@ io.on('connection', (socket) => {
   })
   //recieve by single
   socket.emit('newMessage', generateMessage('admin', 'Welcome to chat app'))
-  socket.broadcast.emit('newMessage', generateMessage('admin', 'new user Join'))
+
       
 
 
   socket.on('createMessage', (message, callback) => {
     console.log('New message', message)
       io.emit('newMessage',generateMessage(message.from, message.text))
-    
-
       callback('This is from server')
   })
+    
+   socket.on('createLocation', (coords) => {
+      io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude ))
+   })
+
+
 
 })
  

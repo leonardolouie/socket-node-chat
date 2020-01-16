@@ -4,16 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Chat app</title>
+    <link rel="stylesheet" href="./css//styles.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-     <div>  Hello chat app </div>
-     <form id="message-form"> 
-         <input id="message" ype="text" name="message" placeholder="new message"/>
-         <button> Send</button> 
-     </form>
-     <ol id="messages"> </ol>
-
+    <div>
+        <div class="flex flex-row  justify-between">
+            <div class="w-64 bg-grey-lighter bg-gray-800 px-5 py-5"> 
+                <h1 class="text-5xl text-white">People</h1>
+            </div>
+            <div class="h-screen w-full">
+                <div class="border flex flex-col flex border border-grey rounded shadow-lg h-full">
+                    <div class="py-2 px-3 bg-grey-lighter flex flex-row justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="ml-4">
+                                <p class="text-grey-darkest">
+                                    CHAT GROUP
+                                </p>
+                                <p class="text-grey-darker text-xs mt-1">
+                                    Andrés, Tom, Harrison, Arnold, Sylvester
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Messages -->
+                    <div class="flex-1 overflow-auto" style="background-color: #222529">
+                        <div class="py-2 px-3" id="messages">
+                            
+                            <!-- <div class="flex justify-center mb-2">
+                                <div class="rounded py-2 px-4" style="background-color: #DDECF2">
+                                    <p class="text-sm uppercase">
+                                        February 20, 2018
+                                    </p>
+                                </div>
+                            </div> -->
+                            
+                            <!-- <div class="flex justify-center mb-4">
+                                <div class="rounded py-2 px-4" style="background-color: #FCF4CB">
+                                    <p class="text-xs">
+                                        Messages to this chat and calls are now secured with end-to-end encryption. Tap for more info.
+                                    </p>
+                                </div>
+                            </div> -->
+                            
+                            <!-- <div class="flex justify-end mb-2">
+                                <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
+                                    <p class="text-sm mt-1">
+                                        Count me in
+                                    </p>
+                                    <p class="text-right text-xs text-grey-dark mt-1">
+                                        12:45 pm
+                                    </p>
+                                </div>
+                            </div> -->
+                            
+                            
+                            
+                            
+                            <!-- <div class="flex justify-end mb-2">
+                                <div class="rounded py-2 px-3" style="background-color: #E2F7CB">
+                                    <p class="text-sm mt-1">
+                                        Hi guys.
+                                    </p>
+                                    <p class="text-right text-xs text-grey-dark mt-1">
+                                        12:45 pm
+                                    </p>
+                                </div>
+                            </div> -->
+                            
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Input -->
+                    <div class="bg-grey-lighter px-4 py-4 flex items-center">
+                        
+                        <div class="flex-1 mx-4">
+                            <input class="w-full border rounded px-2 py-2"  id="message"  name="message" placeholder="message" autofocus autocomplete="off"/>
+                        </div>
+                        <div>
+                            <button  style="background-color: #222529" class="py-2 rounded-lg px-2 text-white" id="send-message">Send Message</button>
+                        </div>
+                        
+                        <div>
+                            <button  style="background-color: #222529" class="py-2 rounded-lg px-2 text-white" id="send-location">Send Location</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </body>
 <script src="/socket.io/socket.io.js"> </script>
