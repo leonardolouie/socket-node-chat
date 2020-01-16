@@ -1,10 +1,25 @@
-  var socket = io();
+ var socket = io();
   
   socket.on('connect', function() {
     console.log(' Connected to server')
+
 })
 
+function scrollToBottom(){
+  var messages = $("#messages");
+  var newMessage = messages.children('div:last-child')
 
+  var clientHeight  = messages.prop('clientHeight')
+  var scrollTop  = messages.prop('scrollTop')
+  var scrollHeight  = messages.prop('scrollHeight')
+  var newMessageHeight = newMessage.innerHeight()
+  var lastMessageHeight = newMessage.prev().innerHeight()
+
+  if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+      messages.scrollTop(scrollHeight)
+  }
+
+}
 
 socket.on('newMessage', function(message) {
      var formattedTime = moment(message.createdAt).format('h:mm a')
@@ -27,20 +42,17 @@ socket.on('disconnect', function() {
 
 
 socket.on('newLocationMessage', function(message) { 
+
+    console.log(message.url)
     var formattedTime = moment(message.createdAt).format('h:mm a')
-    $("#messages").append(`<div class="flex mb-2">
-    <div class="rounded py-2 px-3" style="background-color: #FFE06F">
-    <p class="text-sm text-teal">
-    ${message.from}
-    </p>
-    <p class="text-sm mt-1">
-    <a target="_blank" href=${message.url}> ${message.url}<a/> </li>
-    </p>
-    <p class="text-right text-xs text-grey-dark mt-1">
-    ${formattedTime}
-    </p>
-    </div>
-    </div>`)
+    var template = $("#message-location-template").html()
+    var html = Mustache.render(template, {message:{
+        from:message.from,
+        url:message.url,
+        createdAt:formattedTime
+    }})
+    $("#messages").append(html)
+   
 })
 
 
@@ -55,11 +67,13 @@ $('#send-message').on('click', function(e){
 $(document).on('keypress',function(e) {
     if(e.which == 13) {
         sendMessage()
+        
     }
 });
 
 
 function sendMessage() {
+    scrollToBottom()
     var messageTextBox = $('#message')        
     if(messageTextBox.val() === '')  {
         return alert('Cannot send message with blank value')
@@ -96,6 +110,29 @@ locationButton.on('click', function(e){
         locationButton.removeAttr('disabled', 'disabled').text('Send Location')
         alert('Unable to fetch location')
     })
+
+
+
+    // $("#message").keypress(function() {
+
+    //     console.log('qweqeqe')
+    //     // alert('qwewqeqe')
+    //     // socket.emit('userIsTyping', {
+    //     //     user:'LeonardoLouie'
+    //     // })
+    // })
+
+    // $('#message').on('keydown',function(){
+    //    alert('qweqeqe')
+    // })
+
+    socket.on("recieveUserTyping", function(user){
+       console.log()
+        var template = $("#typing-template").html()
+        var html = Mustache.render(template)
+        $("#messages").append(html)   
+    });
+
     
     
 })

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat app</title>
+    <link rel="stylesheet" href="./css//styles.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div class="flex flex-row  justify-between">
+            <div class="w-64 bg-grey-lighter bg-gray-800 px-5 py-5 hidden md:block"> 
+                <h1 class="text-5xl text-white">People</h1>
+            </div>
+            <div class="h-screen w-full">
+                <div class="border flex flex-col flex border border-grey rounded shadow-lg h-full">
+                    <div class="py-2 px-3 bg-grey-lighter flex flex-row justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="ml-4">
+                                <p class="text-grey-darkest">
+                                    CHAT GROUP
+                                </p>
+                                <p class="text-grey-darker text-xs mt-1">
+                                    Andrés, Tom, Harrison, Arnold, Sylvester
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 overflow-auto" style="background-color: #222529">
+                        <div class="py-2 px-3" id="messages">
+
+                           
+                        </div>
+                    </div>
+                    
+                    <!-- Input -->
+                    <div class="bg-grey-lighter px-4 py-4 flex items-center">
+                        <div class="flex-1 mx-4">
+                            <input class="w-full border rounded px-2 py-2"  id="message"  name="message" placeholder="message" autofocus autocomplete="off"/>
+                        </div>
+                        <div>
+                            <button  style="background-color: #222529" class="py-2 rounded-lg px-2 text-white" id="send-message">Send</button>
+                        </div>
+                        <div>
+                            <button  style="background-color: #222529" class="py-2 rounded-lg px-2 text-white" id="send-location"> Location</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script id="message-template" type="text/template"> 
+    <div class="flex mb-2">
+        <div class="rounded py-2 px-3" style="background-color: #FFFF">
+            <p class="text-md text-teal font-bold">
+                {{message.from}}
+            </p>
+            <p class="text-sm mt-1">
+                {{message.text}}
+            </p>
+            <p class="text-right text-xs text-grey-dark mt-1">
+                {{message.createdAt}}
+            </p>
+        </div>
+    </div>
+</script>
+
+
+<script id="message-location-template" type="text/template"> 
+    <div class="flex mb-2">
+        <div class="rounded py-2 px-3" style="background-color: #FFE06F">
+            <p class="text-sm text-teal font-bold">
+                {{message.from}}
+            </p>
+            <p class="text-sm mt-1">
+                <a target="_blank" href="{{message.url}}"> {{message.url}} <a/>
+             </p>
+                <p class="text-right text-xs text-grey-dark mt-1">
+                    {{message.createdAt}}
+                </p>
+            </div>
+        </div>
+</script>
+
+<script id="typing-template" type="text/template"> 
+    <div id="some-typing" style="position:fixed"> <p class="text-white">Someone is typing........</p></div>
+</script>
+    
+    
+<script src="/socket.io/socket.io.js"> </script>
+<script src="js/libs/jquery-3.4.1.min.js"> </script>
+<script src="js/libs/moment.js"> </script>
+<script src="js/libs/mustache.js"> </script>
+<script src="/js/chat.js"> </script>
+</html>

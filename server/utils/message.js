@@ -1,8 +1,6 @@
 const moment = require('moment')
 
 var generateMessage = (from, text) => {
-
-    console.log(moment().valueOf())
     return {
         from,
         text,
